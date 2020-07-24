@@ -34,7 +34,7 @@
   //This is used to separate keys/data from the json object to use them individually
     // const { latitude, longitude } = data;
 
-//Used https://leafletjs.com/ for the map on the website 
+//Used https://leafletjs.com/ for the MAP on the website 
   //Steps:
     //Clicked on tutorials
     //Leaflet quick start guide 
@@ -45,13 +45,21 @@
     //Initiallize the map by choosing coordinates 
     //Add a tile layer to the map
 
-//Add a marker to the map to display current long and lat 
+//Add a MARKER to the map to display current long and lat 
   //In leaflet click on Docs
   //Under UI layers click on Marker
   //Copy the usage example and paste it into script
     //Change the longitude and latitude data to be at 0
     //Create a const var inside getData function using setLatLng() so
-      that lat and long in global change each time getData is invoked
+      that lat and long in global updates each time long and lat is updated
+      
+  //To change the marker to a CUSTOM ICON
+    //Go to marker docs and click on 'Icon'
+    //Copy the usage example and paste into script
+    //Assign iconURL to name of your image 
+    //iconAnchor is where you want the image to be positioned on the lat and long
+    //Add assigned var for the icon 'issIcon' to the marker as an attribute 
+        //{icon: issIcon}
   -->
 
   <body>
@@ -70,12 +78,17 @@
       const attribution =
         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
 
-      //Setting the 
-      const marker = L.marker([0, 0]).addTo(mymap);
-
       const tileUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
       const tiles = L.tileLayer(tileUrl, { attribution });
       tiles.addTo(mymap);
+
+      //Making a marker with a custom icon 
+      const issIcon = L.icon({
+        iconUrl: 'iss-icon.png',
+        iconSize: [50, 32],
+        iconAnchor: [25, 16],
+      });
+      const marker = L.marker([0, 0], {icon: issIcon}).addTo(mymap);
 
       const api_url = 'https://api.wheretheiss.at/v1/satellites/25544';
     
