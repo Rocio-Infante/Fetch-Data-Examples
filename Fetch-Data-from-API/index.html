@@ -42,6 +42,8 @@
     //Copied js file and pasted after Leaflet's css file in the header
     //Added a div element to the area I want the map to be on the page 
     //Add styling for the map
+    //Initiallize the map by choosing coordinates 
+    //Add a tile layer to the map
   -->
 
   <body>
@@ -54,7 +56,13 @@
     <div id='issMap'></div>
 
     <script>
-  
+
+      const mymap = L.map('issMap').setView([51.505, -0.09], 13);
+
+      const attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>';
+      const tileUrl = 'http://{s}.openstreetmap.org/{foo}/{z}/{x}/{y}.png'
+      const tiles = L.tileLayer(tileUrl, { attribution });
+      tiles.addTo(mymap);
       const api_url = 'https://api.wheretheiss.at/v1/satellites/25544';
 
       async function getData() {
