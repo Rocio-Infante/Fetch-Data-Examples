@@ -74,8 +74,8 @@
     <div id='issMap'></div>
 
     <script>
-      //Making a map and tiles
-        //set view in [] is initial long and lat, and number after is zoom level
+ //Making a map and tiles
+   //set view in [] is initial long and lat, and number after is zoom level
       const mymap = L.map('issMap').setView([0, 0], 1);
       const attribution =
         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
@@ -84,7 +84,7 @@
       const tiles = L.tileLayer(tileUrl, { attribution });
       tiles.addTo(mymap);
 
-      //Making a marker with a custom icon 
+  //Making a marker with a custom icon 
       const issIcon = L.icon({
         iconUrl: 'iss-icon.png',
         iconSize: [50, 32],
@@ -94,7 +94,7 @@
 
       const api_url = 'https://api.wheretheiss.at/v1/satellites/25544';
     
-    //Using this var so that setInterval does not reset mymap.setView
+//Using this var so that setInterval does not reset mymap.setView
       let firstTime = true;
 
       async function getData() {
@@ -103,14 +103,14 @@
         const { latitude, longitude } = data;
 
         marker.setLatLng([latitude,longitude]);
-        //If conditional to avoid setInterval to keep reassigning mymap.setView
-          //If firstTime is true and mymap.setView is true
-           //reassign the value of firstTime to false 
+//If conditional to avoid setInterval to keep reassigning mymap.setView
+    //If firstTime is true and mymap.setView is true
+      //reassign the value of firstTime to false
         if (firstTime) {
         mymap.setView([latitude, longitude], 2);
         firstTime = false;
         }
-        //toFixed is used to only show two decimal places
+//toFixed is used to only show two decimal places
         document.getElementById('lat').textContent = latitude.toFixed(2);
         document.getElementById('lon').textContent = longitude.toFixed(2);
       }
