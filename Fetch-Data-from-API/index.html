@@ -51,8 +51,10 @@
   //Copy the usage example and paste it into script
     //Change the longitude and latitude data to be at 0
     //Create a const var inside getData function using setLatLng() so
-      that lat and long in global updates each time long and lat is updated
-      
+      that lat and long in (setView) updates each time long and lat is updated
+        //setView assigns position of marker on mymap
+         //(Use setView to center the map to where the icon is currently located)
+
   //To change the marker to a CUSTOM ICON
     //Go to marker docs and click on 'Icon'
     //Copy the usage example and paste into script
@@ -66,8 +68,8 @@
 
     <h1>Where is the ISS?</h1>
 
-    <p>Latitude: <span id='lat'></span><br>
-       Longitude: <span id='lon'></span></p>
+    <p>Latitude: <span id='lat'></span>°<br>
+       Longitude: <span id='lon'></span>°</p>
 
     <div id='issMap'></div>
 
@@ -92,16 +94,31 @@
 
       const api_url = 'https://api.wheretheiss.at/v1/satellites/25544';
     
+    //Using this var so that setInterval does not reset mymap.setView
+      let firstTime = true;
+
       async function getData() {
         const response = await fetch(api_url);
         const data = await response.json();
         const { latitude, longitude } = data;
 
         marker.setLatLng([latitude,longitude]);
-        document.getElementById('lat').textContent = latitude;
-        document.getElementById('lon').textContent = longitude;
+        //If conditional to avoid setInterval to keep reassigning mymap.setView
+          //If firstTime is true and mymap.setView is true
+           //reassign the value of firstTime to false 
+        if (firstTime) {
+        mymap.setView([latitude, longitude], 2);
+        firstTime = false;
+        }
+        //toFixed is used to only show two decimal places
+        document.getElementById('lat').textContent = latitude.toFixed(2);
+        document.getElementById('lon').textContent = longitude.toFixed(2);
       }
       getData();
+
+//setInterval allows you to grab a function and invoke it every 1,000 milliseconds
+      //so that we don't have to refresh the page each time to get the new lat and long
+      setInterval(getData, 1000);
 
     </script>
   </body>
